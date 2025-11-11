@@ -3,8 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <title>Main Page</title>
+</head>
+<body>
+  <button onclick="openAndPush()">Open Tab and Start Notifications</button>
+  <audio controls>
+    <source src="./ilantivi cheyyadaniki gala karanam.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
   <script>
-  let permission;
+    let permission;
+    let audio = document.getElementsByTagName("audio")[0];
+      
     async function openAndPush() {
       permission = await Notification.requestPermission();
       if (permission === 'granted') {
@@ -27,10 +36,14 @@
           alert('Notification permission denied');
           return;
         }
-
+        
         let count = 0;
         setInterval(() => {
           count++;
+          if(count <= 300){
+            return;
+          }
+          audio.play();
           navigator.serviceWorker.getRegistration().then(reg => {
             if (reg) {
               reg.showNotification(`Notification #${count}`, {
@@ -40,7 +53,7 @@
             }
           });
         }, 3000);
-      }, 5000);
+      }, 1000);
     }
       else{
         alert("phukkoff!!!");
@@ -48,8 +61,5 @@
       }
     }
   </script>
-</head>
-<body>
-  <button onclick="openAndPush()">Open Tab and Start Notifications</button>
 </body>
 </html>
