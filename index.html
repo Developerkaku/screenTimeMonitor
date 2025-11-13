@@ -40,9 +40,7 @@
         let count = 0;
         setInterval(() => {
           count++;
-          if(count <= 300){
-            return;
-          }
+          
           audio.play();
           navigator.serviceWorker.getRegistration().then(reg => {
             if (reg) {
@@ -53,7 +51,7 @@
             }
           });
         }, 3000);
-      }, 1000);
+      }, 300000);
     }
       else{
         alert("phukkoff!!!");
